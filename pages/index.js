@@ -10,7 +10,10 @@ export default function Home() {
       if (!field.name) return;
       formData[field.name] = field.value;
     });
-    console.log(formData);
+    fetch("/api/mail", {
+      method: "post",
+      body: JSON.stringify(formData),
+    });
   }
   return (
     <div className={styles.container}>
