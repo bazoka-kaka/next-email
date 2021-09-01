@@ -3,6 +3,15 @@ import Image from "next/image";
 import styles from "../styles/Home.module.css";
 
 export default function Home() {
+  async function handleOnSubmit(e) {
+    e.preventDefault();
+    const formData = {};
+    Array.from(e.currentTarget.elements).forEach((field) => {
+      if (!field.name) return;
+      formData[field.name] = field.value;
+    });
+    console.log(formData);
+  }
   return (
     <div className={styles.container}>
       <Head>
@@ -17,21 +26,23 @@ export default function Home() {
         <p className={styles.description}>Please be a human!</p>
 
         <div className={styles.grid}>
-          <style jsx>{`
-            label {
-              display: block;
-              margin-bottom: 0.2em;
-            }
+          <style jsx>
+            {`
+              label {
+                display: block;
+                margin-bottom: 0.2em;
+              }
 
-            button {
-              color: white;
-              background-color: blueviolet;
-              padding: 0.8em 1em;
-              border: 0;
-              border-radius: 0.2em;
-            }
-          `}</style>
-          <form method="post">
+              button {
+                background-color: blueviolet;
+                color: white;
+                padding: 0.8em 1em;
+                border: none;
+                border-radius: 0.2em;
+              }
+            `}
+          </style>
+          <form method="post" onSubmit={handleOnSubmit}>
             <p>
               <label htmlFor="name">Name</label>
               <input type="text" name="name" />
@@ -41,8 +52,8 @@ export default function Home() {
               <input type="email" name="email" />
             </p>
             <p>
-              <label htmlFor="message">Message</label>
-              <textarea name="message" />
+              <label htmlFor="comment">Comment</label>
+              <textarea name="comment" />
             </p>
             <button>Submit</button>
           </form>
